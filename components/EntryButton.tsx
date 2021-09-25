@@ -10,11 +10,12 @@ import {
 
 type EntryButtonProps = {
   style: StyleProp<ViewStyle>;
+  onPress: () => void;
 };
 
-const EntryButton = ({ style }: EntryButtonProps) => {
+const EntryButton = ({ style, onPress }: EntryButtonProps) => {
   return (
-    <Pressable style={style} onPress={() => {}}>
+    <Pressable style={style} onPress={onPress}>
       <View style={styles.addEntryButton}>
         <Text style={styles.addEntryButtonLabel}>+</Text>
       </View>
