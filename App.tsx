@@ -1,14 +1,26 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import AddEntryView from "./components/AddEntryView";
 import EntryButton from "./components/EntryButton";
 
 export default function App() {
+  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
+
+  const handleEntryButtonPress = useCallback(() => {
+    setIsAddEntryOpen((prevIsAddEntryOpen) => {
+      return !prevIsAddEntryOpen;
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
-      <EntryButton style={styles.entryButtonLayout} onPress={() => {}} />
+      <EntryButton
+        style={styles.entryButtonLayout}
+        onPress={handleEntryButtonPress}
+      />
+      {isAddEntryOpen && <AddEntryView />}
     </View>
   );
 }
