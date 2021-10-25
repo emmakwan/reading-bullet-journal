@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { PropsWithChildren, useCallback, useState } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import AddEntryView from "./components/AddEntryView";
 import EntryButton from "./components/EntryButton";
 
@@ -16,7 +16,18 @@ export default function App() {
     });
   }, []);
 
-  const [entries, setEntries] = useState([{}, {}, {}]);
+  const [entries, setEntries] = useState([
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+  ]);
 
   const Card = ({ children }: PropsWithChildren<{}>) => {
     return <View style={styles.card}>{children}</View>;
@@ -24,19 +35,23 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <ScrollView style={{ flex: 1 }}>
+        {entries.map((element, index) => {
+          return (
+            <Card key={`entryCard-${index}`}>
+              <Text>{index}</Text>
+            </Card>
+          );
+        })}
+      </ScrollView>
       <StatusBar style="auto" />
+      {isAddEntryOpen && <AddEntryView />}
       <EntryButton
         style={styles.entryButtonLayout}
+        color={isAddEntryOpen ? "red" : "#592ebc"}
+        label={isAddEntryOpen ? "x" : "+"}
         onPress={handleEntryButtonPress}
       />
-      {isAddEntryOpen && <AddEntryView />}
-      {entries.map((element, index) => {
-        return (
-          <Card key={`entryCard-${index}`}>
-            <Text>{index}</Text>
-          </Card>
-        );
-      })}
     </View>
   );
 }

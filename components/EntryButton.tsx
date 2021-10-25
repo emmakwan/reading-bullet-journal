@@ -10,14 +10,16 @@ import {
 
 type EntryButtonProps = {
   style: StyleProp<ViewStyle>;
+  color: string;
+  label: string;
   onPress: () => void;
 };
 
-const EntryButton = ({ style, onPress }: EntryButtonProps) => {
+const EntryButton = ({ style, color, label, onPress }: EntryButtonProps) => {
   return (
     <Pressable style={style} onPress={onPress}>
-      <View style={styles.addEntryButton}>
-        <Text style={styles.addEntryButtonLabel}>+</Text>
+      <View style={[styles.addEntryButton, { backgroundColor: color }]}>
+        <Text style={styles.addEntryButtonLabel}>{label}</Text>
       </View>
     </Pressable>
   );
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     elevation: 7,
+    zIndex: 10,
   },
   addEntryButtonLabel: {
     color: "#fefefe",

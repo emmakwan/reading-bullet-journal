@@ -43,9 +43,10 @@ const AddEntryView = () => {
 
 const styles = StyleSheet.create({
   addEntryView: {
-    backgroundColor: "red",
-    height: 600,
-    width: 300,
+    backgroundColor: "#f0f3fa",
+    height: "100%",
+    width: "100%",
+    position: "absolute",
   },
 });
 
