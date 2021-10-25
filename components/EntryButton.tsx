@@ -28,12 +28,13 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
-    backgroundColor: "red",
+    backgroundColor: "#592ebc",
     alignItems: "center",
     justifyContent: "center",
+    elevation: 7,
   },
   addEntryButtonLabel: {
-    color: "white",
+    color: "#fefefe",
     fontSize: 30,
   },
 });

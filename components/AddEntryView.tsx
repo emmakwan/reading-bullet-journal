@@ -34,6 +34,9 @@ const AddEntryView = () => {
           onChange={handleOnChange}
         />
       )}
+      <Pressable>
+        <Text>Add Entry</Text>
+      </Pressable>
     </View>
   );
 };
