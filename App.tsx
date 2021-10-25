@@ -4,8 +4,16 @@ import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import AddEntryView from "./components/AddEntryView";
 import EntryButton from "./components/EntryButton";
 
+export type Entry = {
+  date: Date;
+};
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+
+const Card = ({ children }: PropsWithChildren<{}>) => {
+  return <View style={styles.card}>{children}</View>;
+};
 
 export default function App() {
   const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
@@ -16,36 +24,28 @@ export default function App() {
     });
   }, []);
 
-  const [entries, setEntries] = useState([
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
+  const [entries, setEntries] = useState<Entry[]>([]);
 
-  const Card = ({ children }: PropsWithChildren<{}>) => {
-    return <View style={styles.card}>{children}</View>;
-  };
+  const handleOnSubmit = useCallback((entry: Entry) => {
+    setEntries((prevEntries) => {
+      return prevEntries.concat(entry);
+    });
+    setIsAddEntryOpen(false);
+  }, []);
 
   return (
     <View style={styles.container}>
       <ScrollView style={{ flex: 1 }}>
-        {entries.map((element, index) => {
+        {entries.map((entry, index) => {
           return (
             <Card key={`entryCard-${index}`}>
-              <Text>{index}</Text>
+              <Text>{entry.date.toDateString()}</Text>
             </Card>
           );
         })}
       </ScrollView>
       <StatusBar style="auto" />
-      {isAddEntryOpen && <AddEntryView />}
+      {isAddEntryOpen && <AddEntryView onSubmit={handleOnSubmit} />}
       <EntryButton
         style={styles.entryButtonLayout}
         color={isAddEntryOpen ? "red" : "#592ebc"}

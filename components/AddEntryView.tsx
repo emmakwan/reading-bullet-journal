@@ -3,8 +3,13 @@ import { StyleSheet, View, Pressable, Text } from "react-native";
 import DateTimePicker, {
   Event as DatePickerEvent,
 } from "@react-native-community/datetimepicker";
+import { Entry } from "../App";
 
-const AddEntryView = () => {
+type AddEntryViewProps = {
+  onSubmit: (entry: Entry) => void;
+};
+
+const AddEntryView = ({ onSubmit }: AddEntryViewProps) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
@@ -20,9 +25,13 @@ const AddEntryView = () => {
     setShow((prevShow) => !prevShow);
   }, []);
 
+  const handleOnSubmit = useCallback(() => {
+    onSubmit({ date });
+  }, [date]);
+
   return (
     <View style={styles.addEntryView}>
-      <Pressable onPress={handleOnPress}>
+      <Pressable onPress={handleOnPress} style={styles.dateTimePicker}>
         <Text>{date.toDateString()}</Text>
       </Pressable>
       {show && (
@@ -34,7 +43,7 @@ const AddEntryView = () => {
           onChange={handleOnChange}
         />
       )}
-      <Pressable>
+      <Pressable style={styles.addEntryButton} onPress={handleOnSubmit}>
         <Text>Add Entry</Text>
       </Pressable>
     </View>
@@ -47,6 +56,13 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     position: "absolute",
+    justifyContent: "center",
+  },
+  addEntryButton: {
+    alignItems: "center",
+  },
+  dateTimePicker: {
+    alignItems: "center",
   },
 });
 
